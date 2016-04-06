@@ -14,14 +14,16 @@
 ### Example
 
 ``` lisp
-(define c (make-wire))
+(define the-agenda (make-agenda))
+(define inverter-delay 2)
+(define and-gate-delay 3)
+(define or-gate-delay 5)
 
+(define c (make-wire))
 (define a1 (make-wire))
 ; ...
-
 (define b1 (make-wire))
 ; ...
-
 (define s1 (make-wire))
 ; ...
 
