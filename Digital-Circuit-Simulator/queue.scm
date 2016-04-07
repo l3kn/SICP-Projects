@@ -1,0 +1,28 @@
+(define (make-queue) (cons '() '()))
+
+(define (front-ptr q) (car q))
+(define (rear-ptr q) (cdr q))
+(define (set-front-ptr! q ptr) (set-car! q ptr))
+(define (set-rear-ptr! q ptr) (set-cdr! q ptr))
+
+(define (empty-queue? q) (null? (front-ptr q)))
+(define (front-queue q)
+  (if (empty-queue? q)
+    (error "FRONT-QUEUE called with an empty queue" q)
+    (car (front-ptr q))))
+(define (insert-queue! q x)
+  (let ((new-pair (cons x '())))
+    (if (empty-queue? q)
+      (begin (set-front-ptr! q new-pair)
+             (set-rear-ptr! q new-pair)
+             q)
+      (begin (set-cdr! (rear-ptr q) new-pair)
+             (set-rear-ptr! q new-pair)
+             q))))
+(define (delete-queue! q)
+  (if (empty-queue? q)
+    (error "DELETE-QUEUE! called with an empty queue" q)
+    (begin (set-front-ptr! q (cdr (front-ptr q)))
+           q)))
+
+
