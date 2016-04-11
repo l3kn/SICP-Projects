@@ -35,7 +35,9 @@ while line = gets
   max_time = time
 end
 
+max_length = signals.keys.map(&:length).max
+
 signals.each do |name, signal|
-  print "#{name}: "
+  print "#{name.rjust(max_length, ' ')}: "
   puts signal.visualize(max_time, "…", "#", "")
 end
