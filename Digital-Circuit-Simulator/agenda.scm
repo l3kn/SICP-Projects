@@ -89,3 +89,6 @@
     wire
     (lambda ()
       (print (current-time the-agenda) "\t" name "\t" (get-signal wire)))))
+
+(define (comment message)
+  (print (current-time the-agenda) "\t" "COMMENT" "\t" message))
