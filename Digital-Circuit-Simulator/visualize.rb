@@ -21,17 +21,21 @@ end
 
 max_time = 0
 signals = {}
+comments = {}
 
 while line = gets
   time, name, value = line.split("\t")
   time = time.to_i
-  value = value.to_i
 
-  unless signals.has_key?(name)
-    signals[name] = Probe.new
+  if name == "COMMENT"
+    comments[time] = value
+  else
+    unless signals.has_key?(name)
+      signals[name] = Probe.new
+    end
+
+    signals[name].add_value(time, value.to_i)
   end
-
-  signals[name].add_value(time, value)
   max_time = time
 end
 
@@ -40,4 +44,9 @@ max_length = signals.keys.map(&:length).max
 signals.each do |name, signal|
   print "#{name.rjust(max_length, ' ')}: "
   puts signal.visualize(max_time, "…", "#", "")
+end
+
+comments.each do |time, comment|
+  print " " * (max_length + 2 + time)
+  puts "^ #{comment}"
 end
