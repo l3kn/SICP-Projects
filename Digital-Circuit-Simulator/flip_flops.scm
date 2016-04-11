@@ -4,3 +4,17 @@
 (define (sr-nor-latch s r q inv-q)
   (nor-gate s q inv-q)
   (nor-gate r inv-q q))
+
+(define (sr-and-or-latch s r q)
+  (let ((inv-r (make-wire))
+        (or-out (make-wire)))
+    (or-gate s q or-out)
+    (inverter r inv-r)
+    (and-gate or-out inv-r q)))
+
+(define (gated-sr-latch s r e q inv-q)
+  (let ((gated-s (make-wire))
+        (gated-r (make-wire)))
+    (and-gate s e gated-s)
+    (and-gate r e gated-r)
+    (sr-nor-latch gated-s gated-r q inv-q)))
